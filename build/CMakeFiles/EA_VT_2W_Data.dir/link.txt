@@ -1,0 +1,2 @@
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc libEA_VT_2W_Data.a CMakeFiles/EA_VT_2W_Data.dir/juce_binarydata_EA_VT_2W_Data/JuceLibraryCode/BinaryData1.cpp.o CMakeFiles/EA_VT_2W_Data.dir/juce_binarydata_EA_VT_2W_Data/JuceLibraryCode/BinaryData2.cpp.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib libEA_VT_2W_Data.a

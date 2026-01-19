@@ -1,0 +1,56 @@
+name: Build Windows Plugin
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up Visual Studio environment
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Install CMake
+        uses: lukka/get-cmake@latest
+
+      - name: Run build.bat
+        shell: cmd
+        run: |
+          call build.bat
+        continue-on-error: false
+
+      - name: Find built artifacts
+        shell: pwsh
+        run: |
+          Get-ChildItem -Path build -Recurse -Include *.vst3,*.dll | ForEach-Object { Write-Output $_.FullName }
+
+      - name: Upload VST3 Plugin
+        uses: actions/upload-artifact@v4
+        with:
+          name: EA-VT-2W-VST3-Windows
+          path: build/**/Release/**/*.vst3
+          if-no-files-found: warn
+
+      - name: Upload DLL files
+        uses: actions/upload-artifact@v4
+        with:
+          name: EA-VT-2W-DLL-Windows
+          path: build/**/Release/**/*.dll
+          if-no-files-found: warn
+
+      - name: Upload All Release Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: EA-VT-2W-All-Windows
+          path: build/EA_VT_2W_artefacts/Release/
+          if-no-files-found: warn

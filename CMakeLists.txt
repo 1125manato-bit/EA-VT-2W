@@ -1,0 +1,113 @@
+cmake_minimum_required(VERSION 3.22)
+
+# EA VT-2W White - EMU AUDIO
+# Clean / Hi-Fi / Transparent Saturation Plugin
+project(EA_VT_2W VERSION 1.0.0)
+
+# C++17を使用
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# JUCEをローカルソースから使用
+# include(FetchContent)
+# FetchContent_Declare(...)
+# FetchContent_MakeAvailable(JUCE)
+
+add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/../vt2b-black-ui/build/_deps/juce-src" "${CMAKE_CURRENT_BINARY_DIR}/_deps/juce-build")
+
+# プラグインターゲット
+juce_add_plugin(EA_VT_2W
+    # プラグイン情報
+    COMPANY_NAME "EMU AUDIO"
+    COMPANY_WEBSITE "https://emuaudio.com"
+    COMPANY_EMAIL "contact@emuaudio.com"
+    
+    PLUGIN_MANUFACTURER_CODE EmuA
+    PLUGIN_CODE EvtW                   # VT-2W White
+    
+    # フォーマット
+    FORMATS VST3 AU Standalone
+    
+    # プラグイン名
+    PRODUCT_NAME "EA VT-2W"
+    
+    # プラグインタイプ
+    IS_SYNTH FALSE
+    NEEDS_MIDI_INPUT FALSE
+    NEEDS_MIDI_OUTPUT FALSE
+    IS_MIDI_EFFECT FALSE
+    
+    # アイコン（後で設定可能）
+    # ICON_BIG ""
+    # ICON_SMALL ""
+    
+    # バンドル識別子
+    BUNDLE_ID "com.emuaudio.ea-vt2w"
+    
+    # AU固有設定
+    AU_MAIN_TYPE kAudioUnitType_Effect
+    
+    # VST3カテゴリ
+    VST3_CATEGORIES Fx Distortion
+    
+    # コピープロテクト無効
+    COPY_PLUGIN_AFTER_BUILD FALSE
+)
+
+# ソースファイル
+target_sources(EA_VT_2W
+    PRIVATE
+        src/PluginProcessor.cpp
+        src/PluginProcessor.h
+        src/PluginEditor.cpp
+        src/PluginEditor.h
+)
+
+# プリプロセッサ定義
+target_compile_definitions(EA_VT_2W
+    PUBLIC
+        JUCE_WEB_BROWSER=0
+        JUCE_USE_CURL=0
+        JUCE_VST3_CAN_REPLACE_VST2=0
+        JUCE_DISPLAY_SPLASH_SCREEN=0
+        
+        # プラグイン情報
+        JucePlugin_Name="EA VT-2W"
+        JucePlugin_Manufacturer="EMU AUDIO"
+        JucePlugin_ManufacturerCode=0x456d7541  # "EmuA"
+        JucePlugin_PluginCode=0x45767457        # "EvtW"
+        JucePlugin_Version="1.0.0"
+        JucePlugin_VersionString="1.0.0"
+)
+
+# リンクするJUCEモジュール
+target_link_libraries(EA_VT_2W
+    PRIVATE
+        juce::juce_audio_utils
+        juce::juce_audio_processors
+        juce::juce_gui_basics
+        juce::juce_graphics
+        juce::juce_core
+        juce::juce_data_structures
+        juce::juce_events
+    PUBLIC
+        juce::juce_recommended_config_flags
+        juce::juce_recommended_lto_flags
+        juce::juce_recommended_warning_flags
+)
+
+# インクルードパス
+target_include_directories(EA_VT_2W
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        ${CMAKE_CURRENT_SOURCE_DIR}/resources
+)
+
+# リソース（GUI画像など）
+juce_add_binary_data(EA_VT_2W_Data
+    NAMESPACE VT2WData
+    SOURCES
+        resources/background.jpg
+        resources/knob.png
+)
+target_link_libraries(EA_VT_2W PRIVATE EA_VT_2W_Data)
