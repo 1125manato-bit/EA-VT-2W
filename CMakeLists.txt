@@ -13,7 +13,7 @@ include(FetchContent)
 FetchContent_Declare(
     JUCE
     GIT_REPOSITORY https://github.com/juce-framework/JUCE.git
-    GIT_TAG        7.0.12  # または最新の安定版
+    GIT_TAG        8.0.4  # macOS 15互換性のため最新版を使用
 )
 FetchContent_MakeAvailable(JUCE)
 

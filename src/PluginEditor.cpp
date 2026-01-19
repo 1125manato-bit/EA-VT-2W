@@ -34,10 +34,7 @@ void VT2WImageKnob::paint(juce::Graphics &g) {
     float knobSize = juce::jmin(bounds.getWidth(), bounds.getHeight());
     float scale = knobSize / static_cast<float>(knobImage.getWidth());
 
-    // 円形クリッピングを適用（黒い角を非表示にする）
-    juce::Path clipPath;
-    clipPath.addEllipse(bounds.reduced(1.0f));
-    g.reduceClipRegion(clipPath);
+    // 透過PNGを使用するため、追加のクリッピングは不要
 
     juce::AffineTransform transform =
         juce::AffineTransform::rotation(
