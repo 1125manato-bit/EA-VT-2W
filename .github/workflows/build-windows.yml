@@ -57,5 +57,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: EA-VT-2W-Installer-Windows
-          path: packaging/EA_VT-2W_Installer_Windows.exe
+          path: packaging/Output/EA_VT-2W_Installer_Windows.exe
           if-no-files-found: error
