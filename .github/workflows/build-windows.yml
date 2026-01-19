@@ -48,9 +48,14 @@ jobs:
           path: build/**/Release/**/*.dll
           if-no-files-found: warn
 
-      - name: Upload All Release Artifacts
+      - name: Build Installer (Inno Setup)
+        shell: cmd
+        run: |
+          "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" packaging/installer.iss
+
+      - name: Upload Windows Installer
         uses: actions/upload-artifact@v4
         with:
-          name: EA-VT-2W-All-Windows
-          path: build/EA_VT_2W_artefacts/Release/
-          if-no-files-found: warn
+          name: EA-VT-2W-Installer-Windows
+          path: packaging/EA_VT-2W_Installer_Windows.exe
+          if-no-files-found: error
