@@ -1,0 +1,23 @@
+# Build directories
+build/
+bin/
+obj/
+
+# JUCE / IDE
+JuceLibraryCode/
+*.jucer.settings
+.vs/
+*.user
+*.sln
+*.vcxproj*
+
+# macOS
+.DS_Store
+
+# Temporary / Large files
+cmake.tar.gz
+cmake-3.28.1-macos-universal/
+*.app/
+*.vst3/
+*.component/
+*.bak
