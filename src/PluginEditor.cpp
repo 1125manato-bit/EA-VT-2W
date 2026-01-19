@@ -192,21 +192,19 @@ void VT2WWhiteEditor::paint(juce::Graphics &g) {
   if (backgroundImage.isValid()) {
     g.drawImage(backgroundImage, getLocalBounds().toFloat());
   } else {
-    g.fillAll(juce::Colours::white);
-    g.setColour(juce::Colours::black);
     g.drawText("Background Image Not Found", getLocalBounds(),
                juce::Justification::centred);
   }
 }
 
 void VT2WWhiteEditor::resized() {
-  // ユーザー指定座標(Centerで設定)
   int knobSize = 206;
-  int radius = knobSize / 2;
 
-  // DRIVE: Center(216, 626) -> TopLeft(216-103, 626-103)
-  driveKnob.setBounds(216 - radius, 626 - radius, knobSize, knobSize);
+  // DRIVE: Center(216, 626)
+  driveKnob.setSize(knobSize, knobSize);
+  driveKnob.setCentrePosition(216, 626);
 
-  // MIX: Center(809, 626) -> TopLeft(809-103, 626-103)
-  mixKnob.setBounds(809 - radius, 626 - radius, knobSize, knobSize);
+  // MIX: Center(809, 626)
+  mixKnob.setSize(knobSize, knobSize);
+  mixKnob.setCentrePosition(809, 626);
 }
