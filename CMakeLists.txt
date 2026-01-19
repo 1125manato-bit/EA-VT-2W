@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.22)
 
 # EA VT-2W White - EMU AUDIO
 # Clean / Hi-Fi / Transparent Saturation Plugin
-project(EA_VT_2W VERSION 1.0.0)
+project(EA_VT_2W VERSION 1.0.1)
 
 # C++17を使用
 set(CMAKE_CXX_STANDARD 17)
@@ -78,8 +78,8 @@ target_compile_definitions(EA_VT_2W
         JucePlugin_Manufacturer="EMU AUDIO"
         JucePlugin_ManufacturerCode=0x456d7541  # "EmuA"
         JucePlugin_PluginCode=0x45767457        # "EvtW"
-        JucePlugin_Version="1.0.0"
-        JucePlugin_VersionString="1.0.0"
+        JucePlugin_Version="1.0.1"
+        JucePlugin_VersionString="1.0.1"
 )
 
 # リンクするJUCEモジュール
